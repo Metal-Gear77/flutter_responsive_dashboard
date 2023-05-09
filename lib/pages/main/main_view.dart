@@ -20,27 +20,36 @@ class MainPage extends StatelessWidget {
     final subjectState = context.watch<MainProvider>().state;
     final subjectProvider = context.read<MainProvider>();
 
-    Widget navigationDrawer = SizedBox(
-      width: 250,
-      child: NavigationDrawer(
-        onDestinationSelected: (int num) {
-          subjectProvider.setIndex(num);
-        },
-        selectedIndex: subjectState.selectedIndex,
-        children: [
-          UserAccountsDrawerHeader(
-              accountName: Text("accountName"),
-              accountEmail: Text("accountEmail"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.blue,
-              )),
-          ...MainComponent().drawerDestinations.map((e) => NavigationDrawerDestination(
-                icon: e.icon,
-                label: Text(e.label),
-              ))
-        ],
-      ),
-    );
+    Widget navigationDrawer = Container(
+        color: Theme.of(context).canvasColor,
+        width: 250,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              width: 250,
+              child: UserAccountsDrawerHeader(
+                accountName: Text("accountName"),
+                accountEmail: Text("accountEmail"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                ),
+              ),
+            ),
+            Expanded(
+              child: NavigationDrawer(
+                  onDestinationSelected: (int num) {
+                    subjectProvider.setIndex(num);
+                  },
+                  selectedIndex: subjectState.selectedIndex,
+                  children: [
+                    ...MainComponent()
+                        .drawerDestinations
+                        .map((e) => NavigationDrawerDestination(icon: e.icon, label: Text(e.label)))
+                  ]),
+            ),
+          ],
+        ));
     AppBar appBar = AppBar(
       title: Center(child: Text("Title")),
     );
@@ -54,7 +63,10 @@ class MainPage extends StatelessWidget {
           if (Responsive.isDesktop(context)) navigationDrawer,
           Expanded(
               child: Column(
-            children: [if (Responsive.isDesktop(context)) appBar, Expanded(child: Placeholder())],
+            children: [
+              if (Responsive.isDesktop(context)) appBar,
+              Expanded(child: MainComponent().screens[subjectProvider.state.selectedIndex])
+            ],
           ))
         ],
       ),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_dashboard/pages/settings/setting_provider.dart';
 import 'package:flutter_responsive_dashboard/utilities/style.dart';
+import 'package:provider/provider.dart';
 
 import 'pages/main/main_view.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (BuildContext context) => SettingProvider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +19,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Responsive Dashboard',
-      theme: MyStyle().lightTheme,
-      darkTheme: MyStyle().darkTheme,
+      theme: context
+          .watch<SettingProvider>()
+          .state
+          .selectedThemeData,
       home: MainPage(),
     );
   }
