@@ -56,7 +56,6 @@ class SettingState {
           swapLegacyOnMaterial3: true,
         ))
   ];
-
   //https://rydmike.com/flexcolorscheme/themesplayground-v7/#/
 
   SettingState() {
