@@ -1,16 +1,21 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_dashboard/main.dart';
 import 'package:flutter_responsive_dashboard/utilities/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingProvider extends ChangeNotifier {
   final state = SettingState();
 
-  setTheme(String selectedItem) {
+  setTheme(String selectedItem) async {
+    final prefs = await SharedPreferences.getInstance();
+
     state.selectedThemeName = selectedItem;
     state.selectedThemeData = state.themeList
         .elementAt(state.themeList.indexWhere((element) => element.themeName == selectedItem))
         .themeData;
+    MyAppState.themeNotifier.value = state.selectedThemeData;
+    prefs.setString("savedTheme", selectedItem);
     notifyListeners();
   }
 }

@@ -2,28 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_responsive_dashboard/pages/settings/setting_provider.dart';
 import 'package:flutter_responsive_dashboard/utilities/style.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/main/main_view.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (BuildContext context) => SettingProvider(),
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  @override
+  initState() async {
+    prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString("savedTheme") != null) {
+      themeNotifier.value = SettingState()
+          .themeList
+          .elementAt(SettingState()
+              .themeList
+              .indexWhere((element) => element.themeName == prefs.getString("savedTheme")))
+          .themeData;
+    } else {
+      themeNotifier = ValueNotifier(SettingProvider().state.themeList[0].themeData);
+    }
+
+    super.initState();
+  }
+
+  late final SharedPreferences prefs;
+  static late final ValueNotifier<ThemeData> themeNotifier;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Responsive Dashboard',
-      theme: context
-          .watch<SettingProvider>()
-          .state
-          .selectedThemeData,
-      home: MainPage(),
-    );
+    return ValueListenableBuilder<ThemeData>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeData themeData, __) {
+          return MaterialApp(
+            title: 'Flutter Responsive Dashboard',
+            theme: themeData,
+            home: MainPage(),
+          );
+        });
   }
 }

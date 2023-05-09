@@ -20,4 +20,25 @@ class SettingComponent {
           items: provider.state.dropdownMenuItem);
     },
   );
+
+  Widget settingTitle(BuildContext context, String title) {
+    return Text(
+      title,
+      textScaleFactor: 2,
+      style: TextStyle(fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class SettingCard extends StatelessWidget {
+  const SettingCard({Key? key, required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(padding: EdgeInsets.all(20.0), child: child),
+    );
+  }
 }

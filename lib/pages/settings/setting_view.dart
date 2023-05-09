@@ -20,11 +20,21 @@ class SettingPage extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: ListView(
-        children: [
-          SettingComponent().selectThemeButton
-        ],
-      ),
+      child: ListView(children: [
+        SettingCard(
+          child: Column(children: [
+            SettingComponent().settingTitle(context, "UI 설정"),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("테마 설정"),
+                SettingComponent().selectThemeButton,
+              ],
+            ),
+          ]),
+        ),
+      ]),
     );
   }
 }
