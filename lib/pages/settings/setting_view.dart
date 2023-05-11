@@ -18,6 +18,8 @@ class SettingPage extends StatelessWidget {
     final subjectState = context.watch<SettingProvider>().state;
     final subjectProvider = context.read<SettingProvider>();
 
+    subjectProvider.initProvider();
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView(children: [

@@ -7,6 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingProvider extends ChangeNotifier {
   final state = SettingState();
 
+  void initProvider() {
+    getSavedTheme().then((value) {
+      if (value != null) {
+        setTheme(value);
+      }
+    });
+  }
+
   setTheme(String selectedItem) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -18,6 +26,11 @@ class SettingProvider extends ChangeNotifier {
     prefs.setString("savedTheme", selectedItem);
     notifyListeners();
   }
+
+  Future<String?> getSavedTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString("savedTheme");
+  }
 }
 
 class SettingState {
@@ -25,8 +38,8 @@ class SettingState {
   late ThemeData selectedThemeData;
 
   late List<DropdownMenuItem<String>> dropdownMenuItem;
-  final List<ThemeList> themeList = [
-    ThemeList(
+  final List<ThemeListModel> themeList = [
+    ThemeListModel(
         "lightTheme",
         FlexThemeData.light(
           scheme: FlexScheme.materialBaseline,
@@ -41,7 +54,7 @@ class SettingState {
           useMaterial3: true,
           swapLegacyOnMaterial3: true,
         )),
-    ThemeList(
+    ThemeListModel(
         "darkTheme",
         FlexThemeData.dark(
           scheme: FlexScheme.materialBaseline,
@@ -56,11 +69,13 @@ class SettingState {
           swapLegacyOnMaterial3: true,
         ))
   ];
+
   //https://rydmike.com/flexcolorscheme/themesplayground-v7/#/
 
   SettingState() {
     selectedThemeData = themeList[0].themeData;
     selectedThemeName = themeList[0].themeName;
+
     dropdownMenuItem = themeList
         .map((value) => DropdownMenuItem(
               value: value.themeName,
@@ -70,9 +85,9 @@ class SettingState {
   }
 }
 
-class ThemeList {
+class ThemeListModel {
   final String themeName;
   final ThemeData themeData;
 
-  ThemeList(this.themeName, this.themeData);
+  ThemeListModel(this.themeName, this.themeData);
 }

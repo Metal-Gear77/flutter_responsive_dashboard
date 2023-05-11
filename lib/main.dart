@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/main/main_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -19,24 +20,20 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   @override
-  initState() async {
-    prefs = await SharedPreferences.getInstance();
-
-    if (prefs.getString("savedTheme") != null) {
-      themeNotifier.value = SettingState()
-          .themeList
-          .elementAt(SettingState()
-              .themeList
-              .indexWhere((element) => element.themeName == prefs.getString("savedTheme")))
-          .themeData;
-    } else {
-      themeNotifier = ValueNotifier(SettingProvider().state.themeList[0].themeData);
-    }
+  initState() {
+    themeNotifier = ValueNotifier(SettingProvider().state.themeList[0].themeData);
+    SettingProvider().getSavedTheme().then((value) {
+      if (value != null) {
+        themeNotifier.value = SettingState()
+            .themeList
+            .elementAt(SettingState().themeList.indexWhere((element) => element.themeName == value))
+            .themeData;
+      }
+    });
 
     super.initState();
   }
 
-  late final SharedPreferences prefs;
   static late final ValueNotifier<ThemeData> themeNotifier;
 
   @override
