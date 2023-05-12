@@ -7,9 +7,9 @@ class SettingComponent {
     builder: (context, provider, child) {
       return DropdownButton(
           value: provider.state.selectedThemeName,
-          icon: const Icon(Icons.arrow_downward),
+          icon:  Icon(Icons.arrow_downward),
           elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
+          style:  TextStyle(color: Colors.deepPurple),
           underline: Container(
             height: 2,
             color: Colors.deepPurpleAccent,

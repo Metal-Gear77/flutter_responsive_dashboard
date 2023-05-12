@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_dashboard/pages/home/components/home_component.dart';
 import 'package:provider/provider.dart';
 
 import 'home_provider.dart';
@@ -18,6 +19,6 @@ class HomePage extends StatelessWidget {
     final subjectState = context.watch<HomeProvider>().state;
     final subjectProvider = context.read<HomeProvider>();
 
-    return Placeholder();
+    return HomeComponent();
   }
 }

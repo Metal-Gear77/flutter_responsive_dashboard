@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_dashboard/pages/data_table/data_table_view.dart';
 import 'package:flutter_responsive_dashboard/pages/home/home_view.dart';
 import 'package:flutter_responsive_dashboard/pages/main/main_view.dart';
 import 'package:flutter_responsive_dashboard/pages/settings/setting_view.dart';
 
 class MainComponent {
-  final List<Widget> screens = [HomePage(), SettingPage()];
+  final List<Widget> screens = [
+    HomePage(),
+    DataTableDemo(),
+    SettingPage(),
+  ];
 
   final List<DrawerDestination> drawerDestinations = [
     DrawerDestination("main", Icon(Icons.home)),
+    DrawerDestination("data table", Icon(Icons.table_view)),
     DrawerDestination("settings", Icon(Icons.settings)),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_responsive_dashboard/pages/settings/setting_provider.dart';
 import 'package:flutter_responsive_dashboard/utilities/style.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,15 @@ class MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Responsive Dashboard',
             theme: themeData,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale('en'), // English
+              Locale('kr')
+            ],
             home: MainPage(),
           );
         });
