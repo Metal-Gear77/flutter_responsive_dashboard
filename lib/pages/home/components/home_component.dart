@@ -19,14 +19,7 @@ class HomeComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
-        children: [
-          Row1(),
-          Row2(),
-        SizedBox(height: 200,
-        child: HomeComponentGraphics().chart4,),
-          Placeholder(fallbackHeight: 200),
-          Placeholder(fallbackHeight: 200)
-        ],
+        children: [Row1(), Row2(), Row3()],
       ),
     );
   }
@@ -88,7 +81,7 @@ class Row1 extends StatelessWidget {
                           child: Icon(Icons.account_balance_wallet, color: Colors.brown))
                     ]),
                     title: Text("통장 잔액", style: MyStyle().myListTileTitleStyle),
-                    subtitle: Text("41,534,200 원", style: MyStyle().myListTileSubTitleStyle))))),
+                    subtitle: Text("4,534,200 원", style: MyStyle().myListTileSubTitleStyle))))),
   ];
 
   @override
@@ -188,3 +181,49 @@ class Row2 extends StatelessWidget {
 }
 
 final monthDayFormat = DateFormat('MM-dd');
+
+// ignore: must_be_immutable
+class Row3 extends StatelessWidget {
+  Row3({Key? key}) : super(key: key);
+
+  List<Widget> widgetList = [
+    Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(child: SizedBox(height: 250, child: HomeComponentGraphics().chart4))),
+    Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(child: SizedBox(height: 250, child: Container()))),
+    Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(child: SizedBox(height: 250, child: Container()))),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    if (Responsive.isDesktop(context)) {
+      return Row(
+        children: [
+          Flexible(flex: 2, child: widgetList[0]),
+          Flexible(flex: 1, child: widgetList[1]),
+          Flexible(flex: 1, child: widgetList[2]),
+        ],
+      );
+    } else if (Responsive.isTablet(context)) {
+      return Column(
+        children: [
+          widgetList[0],
+          Row(
+            children: [
+              Flexible(flex: 1, child: widgetList[1]),
+              Flexible(flex: 1, child: widgetList[2])
+            ],
+          )
+        ],
+      );
+    } else {
+      return Column(
+        children: widgetList,
+      );
+    }
+  }
+}
