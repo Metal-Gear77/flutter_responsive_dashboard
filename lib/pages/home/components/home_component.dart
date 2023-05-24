@@ -29,60 +29,41 @@ class HomeComponent extends StatelessWidget {
 class Row1 extends StatelessWidget {
   Row1({Key? key}) : super(key: key);
 
-  List<Widget> widgetList = <Widget>[
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: SizedBox(
-                height: 75,
-                child: ListTile(
-                    trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      CircleAvatar(
-                          backgroundColor: Colors.green[50],
-                          child: Icon(Icons.payments, color: Colors.green))
-                    ]),
-                    title: Text("오늘의 총 수입", style: MyStyle().myListTileTitleStyle),
-                    subtitle: Text("120,000 원", style: MyStyle().myListTileSubTitleStyle))))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: SizedBox(
-                height: 75,
-                child: ListTile(
-                    trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      CircleAvatar(
-                          backgroundColor: Colors.blue[50],
-                          child: Icon(Icons.person, color: Colors.blue))
-                    ]),
-                    title: Text("신규 고객 유입 현황", style: MyStyle().myListTileTitleStyle),
-                    subtitle: Text("24 명", style: MyStyle().myListTileSubTitleStyle))))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: SizedBox(
-                height: 75,
-                child: ListTile(
-                    trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      CircleAvatar(
-                          backgroundColor: Colors.orange[50],
-                          child: Icon(Icons.remove_red_eye, color: Colors.orange))
-                    ]),
-                    title: Text("오늘의 조회수", style: MyStyle().myListTileTitleStyle),
-                    subtitle: Text("942 번", style: MyStyle().myListTileSubTitleStyle))))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: SizedBox(
-                height: 75,
-                child: ListTile(
-                    trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      CircleAvatar(
-                          backgroundColor: Colors.brown[50],
-                          child: Icon(Icons.account_balance_wallet, color: Colors.brown))
-                    ]),
-                    title: Text("통장 잔액", style: MyStyle().myListTileTitleStyle),
-                    subtitle: Text("4,534,200 원", style: MyStyle().myListTileSubTitleStyle))))),
-  ];
+  List<Widget> widgetList = [
+    ListTile(
+        trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CircleAvatar(
+              backgroundColor: Colors.green[50], child: Icon(Icons.payments, color: Colors.green))
+        ]),
+        title: Text("오늘의 총 수입", style: MyStyle().myListTileTitleStyle),
+        subtitle: Text("120,000 원", style: MyStyle().myListTileSubTitleStyle)),
+    ListTile(
+        trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CircleAvatar(
+              backgroundColor: Colors.blue[50], child: Icon(Icons.person, color: Colors.blue))
+        ]),
+        title: Text("신규 고객 유입 현황", style: MyStyle().myListTileTitleStyle),
+        subtitle: Text("24 명", style: MyStyle().myListTileSubTitleStyle)),
+    ListTile(
+        trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CircleAvatar(
+              backgroundColor: Colors.orange[50],
+              child: Icon(Icons.remove_red_eye, color: Colors.orange))
+        ]),
+        title: Text("오늘의 조회수", style: MyStyle().myListTileTitleStyle),
+        subtitle: Text("942 번", style: MyStyle().myListTileSubTitleStyle)),
+    ListTile(
+        trailing: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CircleAvatar(
+              backgroundColor: Colors.brown[50],
+              child: Icon(Icons.account_balance_wallet, color: Colors.brown))
+        ]),
+        title: Text("통장 잔액", style: MyStyle().myListTileTitleStyle),
+        subtitle: Text("4,534,200 원", style: MyStyle().myListTileSubTitleStyle))
+  ]
+      .map((e) => Padding(
+          padding: const EdgeInsets.all(8.0), child: Card(child: SizedBox(height: 75, child: e))))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -119,44 +100,35 @@ class Row1 extends StatelessWidget {
 class Row2 extends StatelessWidget {
   Row2({Key? key}) : super(key: key);
 
-  List<Widget> widgetList = <Widget>[
-    Padding(
+  List<Widget> widgetList = [
+    Column(children: [
+      Text("line chart"),
+      SizedBox(height: 200, child: HomeComponentGraphics().chart1)
+    ]),
+    Container(
         padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                height: 250,
-                child: Column(children: [
-                  Text("line chart"),
-                  SizedBox(height: 200, child: HomeComponentGraphics().chart1)
-                ])))),
-    Padding(
+        height: 250,
+        child: Column(children: [
+          Text("e chart"),
+          Container(
+              height: 200,
+              margin: const EdgeInsets.only(top: 10),
+              child: HomeComponentGraphics().chart2)
+        ])),
+    Container(
         padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                height: 250,
-                child: Column(children: [
-                  Text("e chart"),
-                  Container(
-                      height: 200,
-                      margin: const EdgeInsets.only(top: 10),
-                      child: HomeComponentGraphics().chart2)
-                ])))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                height: 250,
-                child: Column(children: [
-                  Text("spider net chart"),
-                  Container(
-                      height: 200,
-                      margin: const EdgeInsets.only(top: 10),
-                      child: HomeComponentGraphics().chart3)
-                ]))))
-  ];
+        height: 250,
+        child: Column(children: [
+          Text("spider net chart"),
+          Container(
+              height: 200,
+              margin: const EdgeInsets.only(top: 10),
+              child: HomeComponentGraphics().chart3)
+        ]))
+  ]
+      .map((e) => Padding(
+          padding: const EdgeInsets.all(8.0), child: Card(child: SizedBox(height: 250, child: e))))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -187,16 +159,13 @@ class Row3 extends StatelessWidget {
   Row3({Key? key}) : super(key: key);
 
   List<Widget> widgetList = [
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(child: SizedBox(height: 250, child: HomeComponentGraphics().chart4))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(child: SizedBox(height: 250, child: Container()))),
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(child: SizedBox(height: 250, child: Container()))),
-  ];
+    HomeComponentGraphics().chart4,
+    HomeComponentGraphics().chart5,
+    Container(),
+  ]
+      .map((e) => Padding(
+          padding: const EdgeInsets.all(8.0), child: Card(child: SizedBox(height: 250, child: e))))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
