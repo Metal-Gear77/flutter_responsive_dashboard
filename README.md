@@ -4,4 +4,4 @@ A new Flutter project.
 
 ## Web Demo
 
-http://rwg02077.iptime.org:1001/dashboard/#/
+[http://rwg02077.iptime.org:1001/dashboard/#/](http://rwg02077.iptime.org:1001/files/dash_board/#/)
